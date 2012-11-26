@@ -243,7 +243,7 @@ abstract class DataBoundObject {
 	 * Throws an exception if its called and a row representing it already exist.
 	 * @throws Exception
 	 */
-	public function insert() {
+	public function insert($loadAfterInsert = false) {
 		$strQuery = "INSERT INTO " . $this->strTableName . " (";
 		foreach ( $this->arRelationMap as $key => $value ) {
 			eval ( '$actualVal = &$this->' . $value . ';' );
@@ -284,7 +284,8 @@ abstract class DataBoundObject {
 				eval ( '$this->ID[$key][\'value\'] = $this->' . $this->arRelationMap[$clause ['field']] . ';' );
 			}
 		}
-		$this->Load ();
+		if($loadAfterInsert)
+			$this->Load ();
 		
 		return $result;
 	}
@@ -295,7 +296,7 @@ abstract class DataBoundObject {
 	 * Throws an exception if saving fails OR if the row doesnt exist
 	 * @throws Exception
 	 */
-	public function save() {
+	public function save($loadAfterSave = false) {
 		$result = false;
 		$dataToBeChanged = array ();
 		if (count ( $this->arModifiedRelations ) > 0) {
@@ -334,8 +335,10 @@ abstract class DataBoundObject {
 				unset ( $dataToBeChanged );
 				$this->arModifiedRelations = array ();
 				//var_dump($this);
-				//LOAD Again. Cos when HTML purifier changes anything its better to load.
-				$this->Load ();
+
+				
+				if($loadAfterSave)
+					$this->Load ();
 			} else {
 				throw new Exception ( "Didnot save as not all ID defined" );
 			}
