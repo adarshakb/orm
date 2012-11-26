@@ -1,4 +1,4 @@
-# Light ORM ( Object Relation Management )
+# Light ORM ( Object Relation Mapping )
 
 ## This is a light-weight ORM for CRUD functions for a database
 
