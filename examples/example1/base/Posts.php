@@ -1,5 +1,5 @@
 <?php
-require_once '../../DataBoundObject.php';
+require_once '../../../DataBoundObject.php';
 require_once 'Admin.php';
 /**
  * 
@@ -112,7 +112,7 @@ class Posts extends DataBoundObject {
 		parent::setUpdated($var);
 	}
 
-	public function save() {
+	public function save($loadAfterSave = false) {
 		$this->setUpdated(date("Y-m-d H:i:s"));
 
 		if($this->Status === self::STATUS_PUBLISHED) {
@@ -120,10 +120,10 @@ class Posts extends DataBoundObject {
 				$this->setFirstPublished(date("Y-m-d H:i:s"));
 			$this->setPublished(date("Y-m-d H:i:s"));
 		}
-		parent::save();
+		parent::save($loadAfterSave);
 	}
 
-	public function insert() {
+	public function insert($loadAfterInsert = false) {
 		//We have to use the direct variable value as we will try to load IDs when we are going to get and it conflicts.
 		if($this->Status === self::STATUS_PUBLISHED) {
 			if($this->FirstPublished == "")
@@ -131,7 +131,7 @@ class Posts extends DataBoundObject {
 			$this->setPublished(date("Y-m-d H:i:s"));
 		}
 		$this->setUpdated(date("Y-m-d H:i:s"));
-		parent::insert();
+		parent::insert($loadAfterInsert);
 	}
 
 	private function setPublished($var) {

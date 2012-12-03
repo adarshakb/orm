@@ -1,5 +1,5 @@
 <?php
-require_once '../../DataBoundObject.php';
+require_once '../../../DataBoundObject.php';
 /**
  * 
  * This class helps us to do operations with Admin Table
