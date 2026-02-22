@@ -1,16 +1,44 @@
-# Light ORM ( Object Relation Mapping )
+# orm
 
-## This is a light-weight ORM for CRUD functions for a database
+A lightweight PHP ORM-style helper for CRUD operations on MySQL using PDO.
 
-* Currently its implemented for MYSQL.
+## Status
+Hobby project, provided as-is.
 
-Features Include
+## Features
+- CRUD support (create, read, update, delete)
+- Composite primary key support
+- Relation mapping between table fields and object properties
+- Reusable database connection and prepared statement caching
 
-1. CRUD (Create, Read, Update & Delete) to database.
-2. Foreign key relationships can be handled in Object Oriented Structure.
-3. Composite primary keys are supported
-4. Lazy updating of changed variables leads to increased preformance
-5. Flexible database class file allows for granular access to data
-6. Exception based approach helps the program stick to OOP structure
-7. Cached database connection for faster access.
-8. Seperate initialization of class from a direct row input from database.
+## Requirements
+- PHP 7.4+
+- PDO + MySQL extension
+
+## Quick start
+1. Copy `config.example.php` to `config.php` (or set environment variables).
+2. Set these environment variables as needed:
+   - `ORM_HOST`
+   - `ORM_DB`
+   - `ORM_NORMAL_USER`
+   - `ORM_NORMAL_PASS`
+   - `ORM_ADMIN_USER`
+   - `ORM_ADMIN_PASS`
+3. Use classes in this repo from your own model classes that extend `DataBoundObject`.
+
+## Project layout
+- `Database.php` — database connection and query helpers
+- `DataBoundObject.php` — core ORM behavior
+- `config.php` / `config.example.php` — runtime configuration
+- `examples/` — sample usage
+
+## Security notes
+- Do not commit real DB credentials.
+- Prefer environment-variable based configuration.
+- Review `SECURITY.md` for reporting vulnerabilities.
+
+## Contributing
+See `CONTRIBUTING.md`.
+
+## License
+MIT — see `LICENSE`.
