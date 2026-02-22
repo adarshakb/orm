@@ -32,6 +32,8 @@ Hobby project, provided as-is.
 - `DataBoundObject.php` — core ORM behavior
 - `config.php` / `config.example.php` — runtime configuration
 - `examples/` — sample usage
+- `docs/DEVELOPER_GUIDE.md` — developer-facing architecture/setup guide
+- `docs/EXAMPLES.md` — examples index
 
 ## Security notes
 - Do not commit real DB credentials.
@@ -43,6 +45,10 @@ Hobby project, provided as-is.
 composer install
 composer test
 ```
+
+## Documentation
+- Developer guide: `docs/DEVELOPER_GUIDE.md`
+- Examples index: `docs/EXAMPLES.md`
 
 ## Contributing
 See `CONTRIBUTING.md`.
