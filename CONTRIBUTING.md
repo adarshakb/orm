@@ -9,9 +9,11 @@ Thanks for contributing.
 - Update docs/examples when behavior changes.
 
 ## Validation
-Run syntax checks before opening a PR:
+Run checks before opening a PR:
 
 ```bash
+composer install
+composer test
 php -l Database.php
 php -l DataBoundObject.php
 php -l config.php

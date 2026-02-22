@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  php-syntax:
+  php-quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,7 +14,14 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
+          tools: composer
+
+      - name: Validate composer
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
 
       - name: Syntax check
         run: |
@@ -22,3 +29,6 @@ jobs:
           php -l DataBoundObject.php
           php -l config.php
           php -l config.example.php
+
+      - name: Run tests
+        run: composer test

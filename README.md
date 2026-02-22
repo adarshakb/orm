@@ -12,8 +12,9 @@ Hobby project, provided as-is.
 - Reusable database connection and prepared statement caching
 
 ## Requirements
-- PHP 7.4+
+- PHP 8.1+
 - PDO + MySQL extension
+- Composer (for dev/test workflows)
 
 ## Quick start
 1. Copy `config.example.php` to `config.php` (or set environment variables).
@@ -36,6 +37,12 @@ Hobby project, provided as-is.
 - Do not commit real DB credentials.
 - Prefer environment-variable based configuration.
 - Review `SECURITY.md` for reporting vulnerabilities.
+
+## Testing
+```bash
+composer install
+composer test
+```
 
 ## Contributing
 See `CONTRIBUTING.md`.
