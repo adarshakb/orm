@@ -21,6 +21,16 @@ final class Database {
 	private static $queryCatch = array (); //Holds the query cache for faster processing
 	private static $HTMLconfig = NULL; // Will store any configuration required for HTML purifier
 	
+	private static function bindParams($query, $arg_list, $startIndex = 1) {
+		for($i = $startIndex; $i < count($arg_list); $i ++) {
+			if (is_int ( $arg_list [$i] )) {
+				$query->bindParam ( $i, $arg_list [$i], PDO::PARAM_INT );
+			} else {
+				$query->bindParam ( $i, $arg_list [$i], PDO::PARAM_STR );
+			}
+		}
+	}
+	
 
 	/**
 	 * Constructor is private as no objects need to be created for static class
@@ -67,8 +77,17 @@ final class Database {
 	 */
 	private static function CONNECT() {
 		if (self::$dbConn === null) {
-			$connUrl = "mysql:host=" . self::$host . ";dbname=" . self::$db;
-			self::$dbConn = new PDO ( $connUrl, self::$username, self::$password, array (PDO::ATTR_PERSISTENT => true ) );
+			$connUrl = "mysql:host=" . self::$host . ";dbname=" . self::$db . ";charset=utf8mb4";
+			self::$dbConn = new PDO (
+				$connUrl,
+				self::$username,
+				self::$password,
+				array (
+					PDO::ATTR_PERSISTENT => true,
+					PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+					PDO::ATTR_EMULATE_PREPARES => false
+				)
+			);
 		}
 	}
 	
@@ -90,20 +109,9 @@ final class Database {
 			self::$queryCatch [$sql] = $query;
 		}
 		
-		$numargs = func_num_args ();
 		$arg_list = func_get_args ();
 		//start from 1st parameter as 0th parameter is the query
-		
-		for($i = 1; $i < $numargs; $i ++) {
-			//echo $arg_list[$i]." - ";
-			if (is_int ( $arg_list [$i] )) {
-				$query->bindParam ( $i, $arg_list [$i], PDO::PARAM_INT );
-			} else {
-				$query->bindParam ( $i, $arg_list [$i], PDO::PARAM_STR );
-			}
-		}
-		
-		
+		self::bindParams($query, $arg_list, 1);
 		$query->execute ();
 		
 		return $query;
@@ -127,17 +135,9 @@ final class Database {
 			self::$queryCatch [$sql] = $query;
 		}
 		
-		$numargs = func_num_args ();
 		$arg_list = func_get_args ();
 		//start from 1st parameter as 0th parameter is the query
-		for($i = 1; $i < $numargs; $i ++) {
-			
-			if (is_int ( $arg_list [$i] )) {
-				$query->bindParam ( $i, $arg_list [$i], PDO::PARAM_INT );
-			} else {
-				$query->bindParam ( $i, $arg_list [$i], PDO::PARAM_STR );
-			}
-		}
+		self::bindParams($query, $arg_list, 1);
 		return $query->execute ();
 	}
 	
