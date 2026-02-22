@@ -1,8 +1,9 @@
 <?php
 /**
- * Runtime configuration for the ORM library.
+ * Example configuration for the ORM library.
  *
- * Use environment variables to avoid committing real credentials.
+ * Copy to config.php (or set equivalent environment variables) and
+ * adjust values to your environment.
  */
 
 define("HOST", getenv("ORM_HOST") ?: "localhost");
